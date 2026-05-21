@@ -1687,6 +1687,7 @@ async function buildAdminInputs() {
     `;
     akDiv.appendChild(row);
   }
+} // end buildAdminInputs
 
 async function saveVarietalGroups() {
   const vgDiv = document.getElementById('varietal-group-inputs');
@@ -2226,11 +2227,18 @@ async function saveScanPlayer(parsed) {
   await dbSet('players/' + id, player);
   showToast(`${nameOverride} added to leaderboard!`);
   clearScan();
-  document.getElementById('scan-status').innerHTML = `
-    <div style="padding:14px;background:rgba(58,158,95,0.1);border:1px solid rgba(58,158,95,0.3);border-radius:4px;font-size:12px;color:#3a9e5f;">
-      ✓ <strong>${nameOverride}</strong> has been added to the leaderboard.
-      <button class="btn btn-outline" style="margin-left:10px;font-size:9px;padding:4px 10px;" onclick="switchAdminTab('players')">View Players</button>
-    </div>`;
+  const statusEl2 = document.getElementById('scan-status');
+  const successDiv = document.createElement('div');
+  successDiv.style.cssText = 'padding:14px;background:rgba(58,158,95,0.1);border:1px solid rgba(58,158,95,0.3);border-radius:4px;font-size:12px;color:#3a9e5f;display:flex;align-items:center;gap:12px;flex-wrap:wrap;';
+  successDiv.innerHTML = '<span>✓ <strong>' + nameOverride + '</strong> has been added to the leaderboard.</span>';
+  const viewBtn = document.createElement('button');
+  viewBtn.className = 'btn btn-outline';
+  viewBtn.style.cssText = 'font-size:9px;padding:4px 10px;';
+  viewBtn.textContent = 'View Players';
+  viewBtn.onclick = () => switchAdminTab('players');
+  successDiv.appendChild(viewBtn);
+  statusEl2.innerHTML = '';
+  statusEl2.appendChild(successDiv);
 }
 
 function saveScanApiKey() {
