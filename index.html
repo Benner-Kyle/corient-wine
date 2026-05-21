@@ -1658,6 +1658,12 @@ async function buildAdminInputs() {
       ? varOpts.map(v => `<button class="country-btn ${ak.varietal===v?'selected':''}" style="height:38px;font-size:11px;" data-ak-row="${i}" data-ak-varietal="${v}" onclick="setAKVarietal(${i},'${v}')">${v}</button>`).join('')
       : `<span style="font-size:10px;color:var(--text-dim);">Set varietal groups first</span>`;
     const opts = wineList.map(w => `<option value="${w}" ${ak.name===w?'selected':''}>${w}</option>`).join('');
+    const frSelected = ak.country === 'France';
+    const usSelected = ak.country === 'USA';
+    const frBg    = frSelected ? 'var(--sel-bg)'    : 'var(--surface)';
+    const frColor = frSelected ? 'var(--sel-color)' : 'var(--text-dim)';
+    const usBg    = usSelected ? 'var(--sel-bg)'    : 'var(--surface)';
+    const usColor = usSelected ? 'var(--sel-color)' : 'var(--text-dim)';
     const row  = document.createElement('div');
     row.style.cssText = 'margin-bottom:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;';
     row.innerHTML = `
@@ -1669,12 +1675,12 @@ async function buildAdminInputs() {
       <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;flex-shrink:0;">
         <button data-ak-country-row="${i}" data-ak-country-val="France"
           onclick="setAKCountry(${i},'France')"
-          style="padding:6px 10px;font-size:10px;font-family:'Montserrat',sans-serif;border:none;cursor:pointer;letter-spacing:.05em;transition:all .15s;background:${ak.country==='France'?'var(--sel-bg)':'var(--surface)'};color:${ak.country==='France'?'var(--sel-color)':'var(--text-dim)'};">
+          style="padding:6px 10px;font-size:10px;font-family:'Montserrat',sans-serif;border:none;cursor:pointer;letter-spacing:.05em;transition:all .15s;background:${frBg};color:${frColor};">
           🇫🇷 FR
         </button>
         <button data-ak-country-row="${i}" data-ak-country-val="USA"
           onclick="setAKCountry(${i},'USA')"
-          style="padding:6px 10px;font-size:10px;font-family:'Montserrat',sans-serif;border:none;border-left:1px solid var(--border);cursor:pointer;letter-spacing:.05em;transition:all .15s;background:${ak.country==='USA'?'var(--sel-bg)':'var(--surface)'};color:${ak.country==='USA'?'var(--sel-color)':'var(--text-dim)'};">
+          style="padding:6px 10px;font-size:10px;font-family:'Montserrat',sans-serif;border:none;border-left:1px solid var(--border);cursor:pointer;letter-spacing:.05em;transition:all .15s;background:${usBg};color:${usColor};">
           🇺🇸 US
         </button>
       </div>
